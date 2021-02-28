@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+
+    redis:
+        image: redis:latest
+
+    api:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - ./api:/api
+        restart: always
+        ports:
+            - '5000:80'
+        links:
+            - redis
+            - mongodb
+        environment:
+            MONGO_URL: mongodb
+
+    worker:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: celery -A run.celery worker --loglevel=info
+        links:
+            - redis
+            - mongodb
+            - account
+        environment:
+            MONGO_URL: mongodb
+        restart: always
+        volumes:
+            - ./api:/api
+
+    mongodb:
+        image: mongo:4
+        ports:
+            - 27017:27017
+
+    account:
+        image: baldini/testacesso
+        ports:
+            - '3000:80'

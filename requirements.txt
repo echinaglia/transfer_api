@@ -1,0 +1,8 @@
+flask
+flask-restplus
+celery
+redis
+marshmallow
+pymongo
+Werkzeug==0.16.1
+requests
