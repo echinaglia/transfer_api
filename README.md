@@ -19,7 +19,7 @@ post transfer
 url: localhost:5000/api/fund-transfer
 
 body:
-```json
+```json5
 {
   "accountOrigin": "string",
   "accountDestination": "string",
@@ -28,7 +28,7 @@ body:
 ```
 
 response:
-```json
+```json5
 {
   "transactionId": "98ad80de-14cc-4e1f-9053-2ea2d8a7dc53"
 }
@@ -38,7 +38,7 @@ get tranfer status
 url: localhost:5000/api/fund-transfer/{{transactionId}}
 
 response:
-```json
+```json5
 {
   "status": "string" // in_queue, processing, confirmed, error
   "message": "string"
